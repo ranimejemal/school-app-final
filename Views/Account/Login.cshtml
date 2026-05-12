@@ -1,0 +1,108 @@
+@model LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Connexion";
+}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SchoolApp – Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body class="login-body">
+    <div class="login-wrapper">
+        <!-- Left panel -->
+        <div class="login-left">
+            <div class="login-brand">
+                <div class="login-brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                <span>SchoolApp</span>
+            </div>
+            <div class="login-illustration">
+                <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Books stack -->
+                    <rect x="80" y="190" width="240" height="30" rx="8" fill="#1a56db" opacity="0.8"/>
+                    <rect x="90" y="165" width="220" height="30" rx="8" fill="#3b82f6" opacity="0.9"/>
+                    <rect x="100" y="140" width="200" height="30" rx="8" fill="#0ea5e9" opacity="0.8"/>
+                    <!-- Graduation cap -->
+                    <ellipse cx="200" cy="100" rx="60" ry="12" fill="#2d3436"/>
+                    <rect x="170" y="70" width="60" height="35" rx="5" fill="#636e72"/>
+                    <line x1="260" y1="100" x2="260" y2="130" stroke="#2d3436" stroke-width="3"/>
+                    <circle cx="260" cy="135" r="8" fill="#fdcb6e"/>
+                    <!-- Stars -->
+                    <circle cx="50"  cy="50"  r="4" fill="#ffeaa7" opacity="0.7"/>
+                    <circle cx="350" cy="80"  r="3" fill="#74b9ff" opacity="0.7"/>
+                    <circle cx="320" cy="30"  r="5" fill="#0ea5e9" opacity="0.6"/>
+                    <circle cx="70"  cy="160" r="3" fill="#00cec9" opacity="0.6"/>
+                </svg>
+            </div>
+            <h2 class="login-tagline">Bienvenue sur votre<br/>espace scolaire</h2>
+            <p class="login-sub">Gérez étudiants, absences, examens et bien plus.</p>
+        </div>
+
+        <!-- Right panel – form -->
+        <div class="login-right">
+            <div class="login-card">
+                <h1 class="login-title">Connexion</h1>
+                <p class="login-hint">Entrez vos identifiants pour accéder à l'application</p>
+
+                <form asp-controller="Account" asp-action="Login" method="post">
+                    <input type="hidden" asp-for="RememberMe" value="false"/>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small mb-3"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="UserName" class="form-control" placeholder="Identifiant" autocomplete="username"/>
+                        <label asp-for="UserName"><i class="bi bi-person me-1"></i>Identifiant</label>
+                        <span asp-validation-for="UserName" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Password" class="form-control" placeholder="Mot de passe" autocomplete="current-password"/>
+                        <label asp-for="Password"><i class="bi bi-lock me-1"></i>Mot de passe</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" asp-for="RememberMe" id="rememberMe"/>
+                        <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-custom w-100">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                    </button>
+                    <div class="d-flex align-items-center gap-2 mt-3 p-2 rounded" style="background:rgba(26,86,219,.06);border:1px solid rgba(26,86,219,.15);">
+                        <i class="bi bi-shield-lock text-primary small"></i>
+                        <span style="font-size:.72rem;color:#636e72;">Connexion sécurisée · 2FA disponible · Verrouillage après 5 tentatives</span>
+                    </div>
+                </form>
+
+                <div class="login-demo mt-4">
+                    <p class="text-muted small mb-2"><strong>Comptes de démonstration :</strong></p>
+                    <div class="demo-accounts">
+                        <div class="demo-badge" onclick="fillLogin('admin','Admin@1234')">
+                            <i class="bi bi-shield-fill"></i> admin / Admin@1234
+                        </div>
+                        <div class="demo-badge" onclick="fillLogin('ameni.bensoussia','Etud@1234')">
+                            <i class="bi bi-person-fill"></i> ameni.bensoussia / Etud@1234
+                        </div>
+                        <div class="demo-badge" onclick="fillLogin('ranime.jemal','Prof@1234')">
+                            <i class="bi bi-person-badge-fill"></i> ranime.jemal / Prof@1234
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function fillLogin(user, pass) {
+            document.getElementById('UserName').value = user;
+            document.getElementById('Password').value = pass;
+        }
+    </script>
+</body>
+</html>

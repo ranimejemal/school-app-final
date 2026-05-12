@@ -1,0 +1,26 @@
+@model IEnumerable<SchoolApp.Models.Module>
+@{ViewData["Title"] = "Modules";}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-book-fill me-2 text-teal"></i>Modules</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+<div class="card-panel">
+    <table class="table table-clean">
+        <thead><tr><th>Libellé</th><th>Durée (h)</th><th>Coefficient</th><th class="text-end">Actions</th></tr></thead>
+        <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td class="fw-semibold">@m.Libelle</td>
+                <td>@m.Duree h</td>
+                <td><span class="badge bg-primary">×@m.Coef</span></td>
+                <td class="text-end">
+                    <a asp-action="Edit"   asp-route-id="@m.Id_m" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                    <a asp-action="Delete" asp-route-id="@m.Id_m" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any()) { <tr><td colspan="4" class="text-center text-muted py-4">Aucun module.</td></tr> }
+        </tbody>
+    </table>
+</div>

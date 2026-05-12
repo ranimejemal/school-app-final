@@ -1,0 +1,21 @@
+@model Absence
+@{ViewData["Title"] = "Supprimer absence";}
+<div class="row justify-content-center"><div class="col-lg-5"><div class="card-panel text-center">
+    <div class="delete-icon mb-3"><i class="bi bi-calendar-x-fill text-danger"></i></div>
+    <h5>Supprimer cette absence ?</h5>
+    <div class="alert alert-warning text-start py-2 small">
+        <strong>Étudiant :</strong> @Model.Etudiant?.NomComplet<br/>
+        <strong>Module :</strong> @Model.Module?.Libelle<br/>
+        <strong>Professeur :</strong> @Model.Professeur?.NomComplet<br/>
+        <strong>Période :</strong> @Model.Date_debut.ToString("dd/MM/yyyy") → @Model.Date_fin.ToString("dd/MM/yyyy") (@Model.NombreJours jour(s))<br/>
+        <strong>Statut :</strong> @(Model.EstJustifiee ? "Justifiée" : "Non justifiée")
+    </div>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id"/>
+        @Html.AntiForgeryToken()
+        <div class="d-flex gap-2 justify-content-center">
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Supprimer</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+        </div>
+    </form>
+</div></div></div>

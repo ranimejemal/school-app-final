@@ -1,0 +1,45 @@
+@model Etudiant
+<div class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="CNE" class="form-label fw-semibold"></label>
+        <input asp-for="CNE" class="form-control"/>
+        <span asp-validation-for="CNE" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Cin" class="form-label fw-semibold"></label>
+        <input asp-for="Cin" class="form-control"/>
+        <span asp-validation-for="Cin" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Nom" class="form-label fw-semibold"></label>
+        <input asp-for="Nom" class="form-control"/>
+        <span asp-validation-for="Nom" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Prenom" class="form-label fw-semibold"></label>
+        <input asp-for="Prenom" class="form-control"/>
+        <span asp-validation-for="Prenom" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Date_nais" class="form-label fw-semibold"></label>
+        <input asp-for="Date_nais" type="date" class="form-control"/>
+        <span asp-validation-for="Date_nais" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="GroupeId" class="form-label fw-semibold"></label>
+        <select asp-for="GroupeId" class="form-select" asp-items="ViewBag.GroupeId">
+            <option value="">— Choisir un groupe —</option>
+        </select>
+        <span asp-validation-for="GroupeId" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label fw-semibold"></label>
+        <input asp-for="Email" type="email" class="form-control"/>
+        <span asp-validation-for="Email" class="text-danger small"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Tel" class="form-label fw-semibold"></label>
+        <input asp-for="Tel" class="form-control"/>
+        <span asp-validation-for="Tel" class="text-danger small"></span>
+    </div>
+</div>

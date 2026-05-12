@@ -1,0 +1,15 @@
+@model Niveau
+@{ViewData["Title"] = "Supprimer niveau";}
+<div class="row justify-content-center"><div class="col-lg-5"><div class="card-panel text-center">
+    <div class="delete-icon mb-3"><i class="bi bi-trash-fill text-danger"></i></div>
+    <h5>Supprimer le niveau <strong>@Model.Libelle</strong> ?</h5>
+    <p class="text-muted small">Cette opération échouera si des groupes sont rattachés à ce niveau.</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id_ni"/>
+        @Html.AntiForgeryToken()
+        <div class="d-flex gap-2 justify-content-center">
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Supprimer</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+        </div>
+    </form>
+</div></div></div>

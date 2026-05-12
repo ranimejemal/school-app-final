@@ -1,0 +1,58 @@
+@model IEnumerable<Etudiant>
+@{ViewData["Title"] = "Étudiants";}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-people-fill me-2 text-primary"></i>Gestion des étudiants</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+
+<div class="card-panel">
+    <form method="get" class="mb-3">
+        <div class="input-group" style="max-width:380px">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+            <input type="text" name="search" value="@ViewData["Search"]" class="form-control border-start-0"
+                   placeholder="Nom, prénom, email, CNE…"/>
+            <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-clean">
+            <thead>
+                <tr>
+                    <th>CNE</th><th>Nom & Prénom</th><th>Email</th>
+                    <th>Téléphone</th><th>Groupe</th><th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td><span class="badge bg-light text-dark border">@e.CNE</span></td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="avatar-sm">@e.Prenom[0]@e.Nom[0]</div>
+                            <div>
+                                <div class="fw-semibold">@e.NomComplet</div>
+                                <small class="text-muted">@e.Date_nais.ToString("dd/MM/yyyy")</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td><a href="mailto:@e.Email" class="text-decoration-none text-muted small">@e.Email</a></td>
+                    <td class="text-muted small">@e.Tel</td>
+                    <td><span class="badge badge-group">@e.Groupe?.Libelle</span></td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@e.Id" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit"    asp-route-id="@e.Id" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete"  asp-route-id="@e.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" class="text-center text-muted py-4">Aucun étudiant trouvé.</td></tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

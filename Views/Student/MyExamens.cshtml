@@ -1,0 +1,134 @@
+@model IEnumerable<Examen>
+@{
+    ViewData["Title"] = "Mes examens";
+    var moy = (double?)ViewData["MoyennePonderee"];
+    var et  = (Etudiant?)ViewData["Etudiant"];
+    var moyClass = moy.HasValue ? (moy >= 10 ? "kpi-green" : "kpi-pink") : "kpi-blue";
+}
+
+<h4 class="page-title mb-4"><i class="bi bi-file-earmark-check-fill me-2 text-success"></i>Mes notes &amp; examens</h4>
+
+@if (et != null)
+{
+    <div class="card-panel mb-4 d-flex align-items-center gap-4">
+        <div class="avatar-lg flex-shrink-0">@et.Prenom[0]@et.Nom[0]</div>
+        <div>
+            <h5 class="mb-1">@et.NomComplet</h5>
+            <div class="text-muted small">
+                CNE : <strong>@et.CNE</strong> &nbsp;|&nbsp;
+                Groupe : <strong>@et.Groupe?.Libelle</strong> &nbsp;|&nbsp;
+                Niveau : <strong>@et.Groupe?.Niveau?.Libelle</strong>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- KPI summary -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="kpi-card @moyClass">
+            <div class="kpi-icon"><i class="bi bi-graph-up"></i></div>
+            <div class="kpi-value">@(moy.HasValue ? moy.Value.ToString("0.00") : "—")</div>
+            <div class="kpi-label">Moyenne générale /20</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-blue">
+            <div class="kpi-icon"><i class="bi bi-file-earmark-check"></i></div>
+            <div class="kpi-value">@Model.Count()</div>
+            <div class="kpi-label">Examens passés</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-icon"><i class="bi bi-check2-circle"></i></div>
+            <div class="kpi-value">@Model.Count(x => x.Note_Ex >= 10)</div>
+            <div class="kpi-label">Modules validés</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-orange">
+            <div class="kpi-icon"><i class="bi bi-x-circle"></i></div>
+            <div class="kpi-value">@Model.Count(x => x.Note_Ex < 10)</div>
+            <div class="kpi-label">À rattraper</div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter -->
+<div class="card-panel mb-4">
+    <form method="get" class="d-flex gap-2 align-items-end">
+        <div>
+            <label class="form-label small fw-semibold">Filtrer par module</label>
+            <select name="moduleId" class="form-select form-select-sm" asp-items="ViewBag.ModuleId" style="min-width:220px">
+                <option value="">Tous les modules</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary-custom btn-sm"><i class="bi bi-search me-1"></i>Filtrer</button>
+        <a asp-action="MyExamens" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x me-1"></i>Réinitialiser</a>
+    </form>
+</div>
+
+<!-- Results grouped by module -->
+@{var grouped = Model.GroupBy(x => x.Module?.Libelle ?? "—").OrderBy(g => g.Key);}
+
+@foreach (var grp in grouped)
+{
+    var notesGrp = grp.Select(x => (double)x.Note_Ex).ToList();
+    var moyGrp   = notesGrp.Average();
+    var coef     = grp.First().Module?.Coef ?? 1;
+    var passed   = moyGrp >= 10;
+
+    <div class="card-panel mb-3">
+        <div class="panel-header">
+            <div class="d-flex align-items-center gap-2">
+                <h6 class="mb-0"><i class="bi bi-book-fill text-primary me-1"></i>@grp.Key</h6>
+                <span class="badge bg-light text-dark border small">Coeff ×@coef</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="fw-bold @(passed ? "text-success" : "text-danger")">
+                    Moyenne : @moyGrp.ToString("0.00")/20
+                </span>
+                @if (passed) { <span class="badge badge-justified">✓ Validé</span> }
+                else { <span class="badge badge-unjustified">À rattraper</span> }
+            </div>
+        </div>
+        <table class="table table-clean table-sm mb-0">
+            <thead><tr><th>Date</th><th>Note</th><th>Appréciation</th></tr></thead>
+            <tbody>
+            @foreach (var x in grp.OrderByDescending(e => e.Date_Ex))
+            {
+                var noteClass = x.Note_Ex >= 16 ? "text-success fw-bold"
+                              : x.Note_Ex >= 10 ? "text-primary fw-semibold"
+                              : "text-danger fw-bold";
+                var appreciation = x.Note_Ex >= 16 ? "Très bien"
+                                 : x.Note_Ex >= 14 ? "Bien"
+                                 : x.Note_Ex >= 12 ? "Assez bien"
+                                 : x.Note_Ex >= 10 ? "Passable"
+                                 : "Insuffisant";
+                <tr>
+                    <td><small class="text-muted">@x.Date_Ex.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))</small></td>
+                    <td>
+                        <span class="@noteClass fs-6">@x.Note_Ex.ToString("0.00")</span>
+                        <span class="text-muted small">/20</span>
+                        <!-- mini progress bar -->
+                        <div class="progress mt-1" style="height:4px;max-width:120px">
+                            <div class="progress-bar @(x.Note_Ex>=10?"bg-success":"bg-danger")"
+                                 style="width:@((x.Note_Ex/20*100).ToString("0"))%"></div>
+                        </div>
+                    </td>
+                    <td><span class="text-muted small">@appreciation</span></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="card-panel text-center py-5 text-muted">
+        <i class="bi bi-file-earmark-x" style="font-size:3rem"></i>
+        <p class="mt-3">Aucun examen enregistré pour le moment.</p>
+    </div>
+}

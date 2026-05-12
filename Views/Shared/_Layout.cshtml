@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SchoolApp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="app-body">
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="d-flex vh-100">
+        <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+        <nav class="sidebar d-flex flex-column">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </div>
+                <span class="brand-name">SchoolApp</span>
+            </div>
+
+            <ul class="sidebar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Home"?"active":"")"
+                       asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-grid-1x2-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-section">Administration</li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Etudiant"?"active":"")"
+                           asp-controller="Etudiant" asp-action="Index">
+                            <i class="bi bi-people-fill"></i><span>Étudiants</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Professeur"?"active":"")"
+                           asp-controller="Professeur" asp-action="Index">
+                            <i class="bi bi-person-badge-fill"></i><span>Professeurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Groupe"?"active":"")"
+                           asp-controller="Groupe" asp-action="Index">
+                            <i class="bi bi-diagram-3-fill"></i><span>Groupes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Niveau"?"active":"")"
+                           asp-controller="Niveau" asp-action="Index">
+                            <i class="bi bi-bar-chart-steps"></i><span>Niveaux</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Specialite"?"active":"")"
+                           asp-controller="Specialite" asp-action="Index">
+                            <i class="bi bi-bookmark-star-fill"></i><span>Spécialités</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Module"?"active":"")"
+                           asp-controller="Module" asp-action="Index">
+                            <i class="bi bi-book-fill"></i><span>Modules</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Absence"?"active":"")"
+                           asp-controller="Absence" asp-action="Index">
+                            <i class="bi bi-calendar-x-fill"></i><span>Absences</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Examen"?"active":"")"
+                           asp-controller="Examen" asp-action="Index">
+                            <i class="bi bi-file-earmark-check-fill"></i><span>Examens</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Affectation"?"active":"")"
+                           asp-controller="Affectation" asp-action="Index">
+                            <i class="bi bi-arrow-left-right"></i><span>Affectations</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Statistics"?"active":"")"
+                           asp-controller="Statistics" asp-action="Index">
+                            <i class="bi bi-graph-up-arrow"></i><span>Statistiques</span>
+                        </a>
+                    </li>
+                }
+                else if (User.IsInRole("Etudiant"))
+                {
+                    <li class="nav-section">Espace Étudiant</li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString()=="MyAbsences"?"active":"")"
+                           asp-controller="Absence" asp-action="MyAbsences">
+                            <i class="bi bi-calendar-x-fill"></i><span>Mes absences</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString()=="MyExamens"?"active":"")"
+                           asp-controller="Student" asp-action="MyExamens">
+                            <i class="bi bi-file-earmark-check-fill"></i><span>Mes notes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Statistics"?"active":"")"
+                           asp-controller="Statistics" asp-action="Index">
+                            <i class="bi bi-graph-up-arrow"></i><span>Statistiques</span>
+                        </a>
+                    </li>
+                }
+                else if (User.IsInRole("Professeur"))
+                {
+                    <li class="nav-section">Espace Professeur</li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Absence" asp-action="Index">
+                            <i class="bi bi-calendar-x-fill"></i><span>Absences</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Statistics" asp-action="Index">
+                            <i class="bi bi-graph-up-arrow"></i><span>Statistiques</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            <!-- Security link -->
+            <div style="padding:8px 10px 0;">
+                <a asp-controller="Account" asp-action="Security"
+                   class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString()=="Account" && ViewContext.RouteData.Values["action"]?.ToString()=="Security" ? "active" : "")"
+                   style="margin-bottom:0;">
+                    <i class="bi bi-shield-fill-check"></i><span>Sécurité</span>
+                    <span class="twofa-badge ms-auto">2FA</span>
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">@User.Identity!.Name![0].ToString().ToUpper()</div>
+                    <div>
+                        <div class="user-name">@User.Identity.Name</div>
+                        <div class="user-role">
+                            @(User.IsInRole("Admin") ? "Administrateur" :
+                              User.IsInRole("Professeur") ? "Professeur" : "Étudiant")
+                        </div>
+                    </div>
+                </div>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-logout" title="Déconnexion">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </nav>
+
+        <!-- ── Main content ─────────────────────────────────────────────────── -->
+        <main class="main-content flex-grow-1 overflow-auto">
+            <!-- Top bar -->
+            <div class="topbar">
+                <div class="topbar-search">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Rechercher…" class="search-input" />
+                </div>
+    <div class="topbar-date">
+                    <i class="bi bi-calendar3"></i>
+                    <span>@DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))</span>
+                </div>
+                <div class="topbar-actions">
+                    <!-- Notification Bell -->
+                    <div style="position:relative;">
+                        <button class="notif-btn" id="notifBtn" title="Notifications">
+                            <i class="bi bi-bell-fill"></i>
+                            <span class="notif-badge" id="notifCount">3</span>
+                        </button>
+                        <div class="notif-panel" id="notifPanel">
+                            <div class="notif-header">
+                                <span><i class="bi bi-bell me-2"></i>Notifications</span>
+                                <button class="btn btn-link btn-sm p-0 text-muted" id="markAllRead" style="font-size:.75rem;">Tout lire</button>
+                            </div>
+                            <div class="notif-list" id="notifList">
+                                <div class="notif-item unread">
+                                    <div class="notif-icon blue"><i class="bi bi-person-plus-fill"></i></div>
+                                    <div class="notif-text">
+                                        <strong>Nouvel étudiant ajouté</strong>
+                                        <div class="notif-time"><i class="bi bi-clock me-1"></i>Il y a 5 min</div>
+                                    </div>
+                                </div>
+                                <div class="notif-item unread">
+                                    <div class="notif-icon orange"><i class="bi bi-calendar-x-fill"></i></div>
+                                    <div class="notif-text">
+                                        <strong>3 absences non justifiées</strong>
+                                        <div class="notif-time"><i class="bi bi-clock me-1"></i>Il y a 1h</div>
+                                    </div>
+                                </div>
+                                <div class="notif-item unread">
+                                    <div class="notif-icon green"><i class="bi bi-file-earmark-check-fill"></i></div>
+                                    <div class="notif-text">
+                                        <strong>Examen planifié demain</strong>
+                                        <div class="notif-time"><i class="bi bi-clock me-1"></i>Il y a 2h</div>
+                                    </div>
+                                </div>
+                                <div class="notif-item">
+                                    <div class="notif-icon red"><i class="bi bi-shield-exclamation"></i></div>
+                                    <div class="notif-text">
+                                        <strong>Tentative de connexion échouée</strong>
+                                        <div class="notif-time"><i class="bi bi-clock me-1"></i>Hier</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notif-footer">
+                                <a asp-controller="Account" asp-action="Security" class="text-primary fw-600">Voir la sécurité du compte</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Security link -->
+                    <a asp-controller="Account" asp-action="Security" class="notif-btn" title="Sécurité">
+                        <i class="bi bi-shield-fill-check"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <!-- Toast notification -->
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0 mb-4" role="alert">
+                        <i class="bi bi-exclamation-circle-fill me-2"></i>@TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+}
+else
+{
+    @RenderBody()
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,83 @@
+@model AbsenceSearchViewModel
+@{ViewData["Title"] = "Absences";}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-calendar-x-fill me-2 text-danger"></i>Gestion des absences</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+
+<div class="card-panel mb-4">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label small fw-semibold">Étudiant</label>
+            <select name="etudiantId" class="form-select form-select-sm" asp-items="ViewBag.EtudiantId">
+                <option value="">Tous les étudiants</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small fw-semibold">Module</label>
+            <select name="moduleId" class="form-select form-select-sm" asp-items="ViewBag.ModuleId">
+                <option value="">Tous</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small fw-semibold">Date début</label>
+            <input type="date" name="dateDebut" value="@Model.DateDebut?.ToString("yyyy-MM-dd")" class="form-control form-control-sm"/>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small fw-semibold">Date fin</label>
+            <input type="date" name="dateFin" value="@Model.DateFin?.ToString("yyyy-MM-dd")" class="form-control form-control-sm"/>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small fw-semibold">Justification</label>
+            <input type="text" name="justification" value="@Model.Justification" class="form-control form-control-sm" placeholder="Maladie…"/>
+        </div>
+        <div class="col-md-1 d-flex gap-1 align-items-end">
+            <button type="submit" class="btn btn-primary-custom btn-sm flex-grow-1"><i class="bi bi-search"></i></button>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x"></i></a>
+        </div>
+    </form>
+</div>
+
+<div class="card-panel">
+    <div class="table-responsive">
+        <table class="table table-clean">
+            <thead>
+                <tr>
+                    <th>Étudiant</th><th>Module / Séance</th><th>Professeur</th>
+                    <th>Date début</th><th>Date fin</th><th>Jours</th>
+                    <th>Statut</th><th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var a in Model.Results)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="avatar-sm">@a.Etudiant?.Prenom[0]@a.Etudiant?.Nom[0]</div>
+                            <span class="fw-semibold small">@a.Etudiant?.NomComplet</span>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-group">@a.Module?.Libelle</span></td>
+                    <td class="small text-muted">@a.Professeur?.NomComplet</td>
+                    <td class="small">@a.Date_debut.ToString("dd/MM/yyyy")</td>
+                    <td class="small">@a.Date_fin.ToString("dd/MM/yyyy")</td>
+                    <td><span class="badge bg-secondary">@a.NombreJours j</span></td>
+                    <td>
+                        @if (a.EstJustifiee) { <span class="badge badge-justified">✓ Justifiée</span> }
+                        else { <span class="badge badge-unjustified">Non justifiée</span> }
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Edit"   asp-route-id="@a.Id" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete" asp-route-id="@a.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Results.Any())
+            { <tr><td colspan="8" class="text-center text-muted py-4">Aucune absence trouvée.</td></tr> }
+            </tbody>
+        </table>
+    </div>
+    <div class="text-muted small mt-2">@Model.Results.Count résultat(s)</div>
+</div>

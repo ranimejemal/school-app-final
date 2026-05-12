@@ -1,0 +1,239 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v8.0
+build_property.RootNamespace = SchoolApp
+build_property.RootNamespace = SchoolApp
+build_property.ProjectDir = C:\Users\ranim\Downloads\SchoolApp_v3 (1)\SchoolApp_final\SchoolApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\ranim\Downloads\SchoolApp_v3 (1)\SchoolApp_final\SchoolApp
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Absence/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Absence/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Absence/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Absence/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Absence/MyAbsences.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxNeUFic2VuY2VzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/ForceChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JjZUNoYW5nZVBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/LoginWith2fa.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbldpdGgyZmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/Security.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxTZWN1cml0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Account/TwoFactorSetup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxUd29GYWN0b3JTZXR1cC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Affectation/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Affectation/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Affectation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Etudiant/_EtudiantForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXR1ZGlhbnRcX0V0dWRpYW50Rm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Examen/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhhbWVuXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Examen/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhhbWVuXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Examen/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhhbWVuXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Examen/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhhbWVuXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Groupe/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Groupe/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Groupe/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Groupe/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JvdXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Module/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kdWxlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Module/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kdWxlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Module/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kdWxlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Module/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kdWxlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Niveau/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTml2ZWF1XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Niveau/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTml2ZWF1XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Niveau/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTml2ZWF1XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Niveau/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTml2ZWF1XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Professeur/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2V1clxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Professeur/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2V1clxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Professeur/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2V1clxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Professeur/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2V1clxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Professeur/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2V1clxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Specialite/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl0ZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Specialite/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl0ZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Specialite/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl0ZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Specialite/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl0ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Statistics/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdGlzdGljc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/Student/MyExamens.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxNeUV4YW1lbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ranim/Downloads/SchoolApp_v3 (1)/SchoolApp_final/SchoolApp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

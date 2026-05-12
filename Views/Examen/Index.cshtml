@@ -1,0 +1,38 @@
+@model IEnumerable<Examen>
+@{ViewData["Title"] = "Examens";}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-file-earmark-check-fill me-2 text-success"></i>Examens & Notes</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+<div class="card-panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-4"><label class="form-label small fw-semibold">Étudiant</label><select name="etudiantId" class="form-select form-select-sm" asp-items="ViewBag.EtudiantId"><option value="">Tous</option></select></div>
+        <div class="col-md-4"><label class="form-label small fw-semibold">Module</label><select name="moduleId" class="form-select form-select-sm" asp-items="ViewBag.ModuleId"><option value="">Tous</option></select></div>
+        <div class="col-md-4 d-flex gap-1 align-items-end">
+            <button class="btn btn-primary-custom btn-sm flex-grow-1"><i class="bi bi-search me-1"></i>Filtrer</button>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x"></i></a>
+        </div>
+    </form>
+</div>
+<div class="card-panel">
+    <table class="table table-clean">
+        <thead><tr><th>Étudiant</th><th>Module</th><th>Date</th><th>Note</th><th class="text-end">Actions</th></tr></thead>
+        <tbody>
+        @foreach (var x in Model)
+        {
+            var cls = x.Note_Ex >= 10 ? "text-success fw-bold" : "text-danger fw-bold";
+            <tr>
+                <td><div class="d-flex align-items-center gap-2"><div class="avatar-sm">@x.Etudiant?.Prenom[0]@x.Etudiant?.Nom[0]</div><span class="small fw-semibold">@x.Etudiant?.NomComplet</span></div></td>
+                <td><span class="badge badge-group">@x.Module?.Libelle</span></td>
+                <td><small class="text-muted">@x.Date_Ex.ToString("dd/MM/yyyy")</small></td>
+                <td><span class="@cls">@x.Note_Ex.ToString("0.00")/20</span></td>
+                <td class="text-end">
+                    <a asp-action="Edit"   asp-route-id="@x.Id" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                    <a asp-action="Delete" asp-route-id="@x.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any()) { <tr><td colspan="5" class="text-center text-muted py-4">Aucun examen.</td></tr> }
+        </tbody>
+    </table>
+</div>

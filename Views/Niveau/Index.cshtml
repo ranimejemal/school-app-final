@@ -1,0 +1,26 @@
+@model IEnumerable<Niveau>
+@{ViewData["Title"] = "Niveaux";}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-bar-chart-steps me-2 text-primary"></i>Niveaux</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+<div class="card-panel">
+    <table class="table table-clean">
+        <thead><tr><th>#</th><th>Libellé</th><th>Groupes</th><th class="text-end">Actions</th></tr></thead>
+        <tbody>
+        @foreach (var n in Model)
+        {
+            <tr>
+                <td class="text-muted small">@n.Id_ni</td>
+                <td class="fw-semibold">@n.Libelle</td>
+                <td><span class="badge bg-light text-dark border">@n.Groupes.Count</span></td>
+                <td class="text-end">
+                    <a asp-action="Edit"   asp-route-id="@n.Id_ni" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                    <a asp-action="Delete" asp-route-id="@n.Id_ni" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any()) { <tr><td colspan="4" class="text-center text-muted py-4">Aucun niveau.</td></tr> }
+        </tbody>
+    </table>
+</div>

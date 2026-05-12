@@ -1,0 +1,71 @@
+@model Etudiant
+@{ViewData["Title"] = "Détails étudiant";}
+
+<div class="d-flex gap-2 mb-4 align-items-center">
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i></a>
+    <h4 class="page-title mb-0"><i class="bi bi-person-lines-fill text-info me-2"></i>@Model.NomComplet</h4>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card-panel text-center">
+            <div class="avatar-lg mx-auto mb-3">@Model.Prenom[0]@Model.Nom[0]</div>
+            <h5 class="mb-1">@Model.NomComplet</h5>
+            <p class="text-muted small mb-2">CNE : @Model.CNE</p>
+            <span class="badge badge-group">@Model.Groupe?.Libelle</span>
+            <hr/>
+            <div class="text-start small">
+                <div class="mb-2"><i class="bi bi-envelope text-muted me-2"></i>@Model.Email</div>
+                <div class="mb-2"><i class="bi bi-telephone text-muted me-2"></i>@Model.Tel</div>
+                <div><i class="bi bi-calendar3 text-muted me-2"></i>@Model.Date_nais.ToString("dd/MM/yyyy")</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card-panel mb-3">
+            <div class="panel-header"><h6><i class="bi bi-calendar-x text-danger me-2"></i>Absences (@Model.Absences.Count)</h6></div>
+            @if (Model.Absences.Any())
+            {
+                <table class="table table-clean table-sm">
+                    <thead><tr><th>Module</th><th>Début</th><th>Fin</th><th>Jours</th><th>Statut</th></tr></thead>
+                    <tbody>
+                    @foreach (var a in Model.Absences.OrderByDescending(x => x.Date_debut))
+                    {
+                        <tr>
+                            <td>@a.Date_debut.ToString("dd/MM/yyyy")</td>
+                            <td>@a.Date_fin.ToString("dd/MM/yyyy")</td>
+                            <td>@a.NombreJours</td>
+                            <td>@(a.EstJustifiee ? a.Justification : "—")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else { <p class="text-muted text-center py-2">Aucune absence.</p> }
+        </div>
+
+        <div class="card-panel">
+            <div class="panel-header"><h6><i class="bi bi-file-earmark-check text-success me-2"></i>Examens (@Model.Examens.Count)</h6></div>
+            @if (Model.Examens.Any())
+            {
+                <table class="table table-clean table-sm">
+                    <thead><tr><th>Module</th><th>Date</th><th>Note</th></tr></thead>
+                    <tbody>
+                    @foreach (var x in Model.Examens.OrderByDescending(e => e.Date_Ex))
+                    {
+                        <tr>
+                            <td>@x.Module?.Libelle</td>
+                            <td>@x.Date_Ex.ToString("dd/MM/yyyy")</td>
+                            <td class="@(x.Note_Ex >= 10 ? "text-success fw-bold" : "text-danger fw-bold")">
+                                @x.Note_Ex.ToString("0.00")/20
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else { <p class="text-muted text-center py-2">Aucun examen.</p> }
+        </div>
+    </div>
+</div>

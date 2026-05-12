@@ -1,0 +1,146 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Welcome banner -->
+<div class="welcome-banner mb-4">
+    <div class="welcome-text">
+        <h2>Bonjour, @Model.UserName ! 👋</h2>
+        <p class="mb-0">Voici un aperçu de votre espace @Model.Role</p>
+    </div>
+    <div class="welcome-illustration">
+        <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="200" height="120">
+            <rect x="30" y="70" width="140" height="20" rx="6" fill="rgba(255,255,255,.25)"/>
+            <rect x="40" y="52" width="120" height="20" rx="6" fill="rgba(255,255,255,.35)"/>
+            <rect x="50" y="34" width="100" height="20" rx="6" fill="rgba(255,255,255,.45)"/>
+            <circle cx="160" cy="30" r="18" fill="rgba(255,255,255,.2)"/>
+            <text x="153" y="36" font-size="18" fill="white">🎓</text>
+        </svg>
+    </div>
+</div>
+
+<!-- KPI cards -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-blue">
+            <div class="kpi-icon"><i class="bi bi-people-fill"></i></div>
+            <div class="kpi-value">@Model.Stats.TotalEtudiants</div>
+            <div class="kpi-label">Étudiants</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-purple">
+            <div class="kpi-icon"><i class="bi bi-person-badge-fill"></i></div>
+            <div class="kpi-value">@Model.Stats.TotalProfesseurs</div>
+            <div class="kpi-label">Professeurs</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-pink">
+            <div class="kpi-icon"><i class="bi bi-calendar-x-fill"></i></div>
+            <div class="kpi-value">@Model.Stats.TotalAbsences</div>
+            <div class="kpi-label">Absences</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-icon"><i class="bi bi-book-fill"></i></div>
+            <div class="kpi-value">@Model.Stats.TotalModules</div>
+            <div class="kpi-label">Modules</div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Absences.Any() || Model.Examens.Any())
+{
+    <div class="row g-4">
+        <!-- Recent absences -->
+        @if (Model.Absences.Any())
+        {
+            <div class="col-md-6">
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h5><i class="bi bi-calendar-x text-danger me-2"></i>Mes absences récentes</h5>
+                        <a asp-controller="Absence" asp-action="MyAbsences" class="btn-view-all">Voir tout →</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-clean">
+                            <thead><tr><th>Période</th><th>Jours</th><th>Statut</th></tr></thead>
+                            <tbody>
+                            @foreach (var a in Model.Absences)
+                            {
+                                <tr>
+                                    <td>
+                                        <small class="text-muted">@a.Date_debut.ToString("dd/MM") → @a.Date_fin.ToString("dd/MM/yyyy")</small>
+                                    </td>
+                                    <td><span class="badge bg-secondary">@a.NombreJours j</span></td>
+                                    <td>
+                                        @if (a.EstJustifiee)
+                                        { <span class="badge badge-justified">Justifiée</span> }
+                                        else
+                                        { <span class="badge badge-unjustified">Non justifiée</span> }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Recent exams -->
+        @if (Model.Examens.Any())
+        {
+            <div class="col-md-6">
+                <div class="card-panel">
+                    <div class="panel-header">
+                        <h5><i class="bi bi-file-earmark-check text-success me-2"></i>Mes notes récentes</h5>
+                        <a asp-controller="Student" asp-action="MyExamens" class="btn-view-all">Voir tout →</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-clean">
+                            <thead><tr><th>Module</th><th>Date</th><th>Note</th></tr></thead>
+                            <tbody>
+                            @foreach (var x in Model.Examens)
+                            {
+                                var cls = x.Note_Ex >= 10 ? "text-success fw-bold" : "text-danger fw-bold";
+                                <tr>
+                                    <td>@x.Module?.Libelle</td>
+                                    <td><small class="text-muted">@x.Date_Ex.ToString("dd/MM/yyyy")</small></td>
+                                    <td><span class="@cls">@x.Note_Ex.ToString("0.00")/20</span></td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else if (User.IsInRole("Admin"))
+{
+    <!-- Quick access for admin -->
+    <div class="row g-3">
+        <div class="col-12"><h5 class="text-muted fw-semibold mb-2">Accès rapide</h5></div>
+        @foreach (var (icon, label, controller, action, color) in new (string,string,string,string,string)[]
+        {
+            ("bi-people-fill",         "Étudiants",   "Etudiant",   "Index", "kpi-blue"),
+            ("bi-person-badge-fill",   "Professeurs", "Professeur", "Index", "kpi-purple"),
+            ("bi-calendar-x-fill",     "Absences",    "Absence",    "Index", "kpi-pink"),
+            ("bi-file-earmark-check",  "Examens",     "Examen",     "Index", "kpi-green"),
+            ("bi-graph-up-arrow",      "Statistiques","Statistics", "Index", "kpi-orange"),
+            ("bi-book-fill",           "Modules",     "Module",     "Index", "kpi-teal"),
+        })
+        {
+            <div class="col-6 col-md-4 col-lg-2">
+                <a asp-controller="@controller" asp-action="@action" class="quick-access-card @color">
+                    <i class="bi @icon"></i>
+                    <span>@label</span>
+                </a>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,53 @@
+@model Etudiant
+@{ViewData["Title"] = "Ajouter un étudiant";}
+<div class="row justify-content-center">
+<div class="col-lg-8">
+<div class="card-panel">
+    <h5 class="mb-4"><i class="bi bi-person-plus-fill text-primary me-2"></i>Nouvel étudiant</h5>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+        @await Html.PartialAsync("_EtudiantForm")
+
+        {{!-- Login account section --}}
+        <hr class="my-3"/>
+        <div class="alert alert-info py-2 small">
+            <i class="bi bi-shield-lock me-1"></i>
+            <strong>Compte de connexion :</strong> Le login sera la partie locale de l'email (avant @@).
+            Définissez un mot de passe temporaire — l'étudiant devra le modifier à sa première connexion.
+        </div>
+        <div class="row g-3 mt-1">
+            <div class="col-md-6">
+                <label for="tempPassword" class="form-label fw-semibold">
+                    <i class="bi bi-key me-1"></i>Mot de passe temporaire <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                    <input type="password" name="tempPassword" id="tempPassword" class="form-control"
+                           placeholder="Minimum 4 caractères" required />
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePwd()">
+                        <i class="bi bi-eye" id="pwdIcon"></i>
+                    </button>
+                </div>
+                <div class="form-text text-muted">L'étudiant sera invité à changer ce mot de passe dès sa première connexion.</div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-primary-custom"><i class="bi bi-check-lg me-1"></i>Enregistrer</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+    function togglePwd() {
+        const inp  = document.getElementById('tempPassword');
+        const icon = document.getElementById('pwdIcon');
+        if (inp.type === 'password') { inp.type = 'text'; icon.className = 'bi bi-eye-slash'; }
+        else                         { inp.type = 'password'; icon.className = 'bi bi-eye'; }
+    }
+    </script>
+}

@@ -1,0 +1,85 @@
+@model AbsenceSearchViewModel
+@{ViewData["Title"] = "Mes absences";}
+
+<h4 class="page-title mb-4"><i class="bi bi-calendar-x-fill me-2 text-danger"></i>Mes absences</h4>
+
+<div class="card-panel mb-4">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label small fw-semibold">Date début</label>
+            <input type="date" name="dateDebut" value="@Model.DateDebut?.ToString("yyyy-MM-dd")" class="form-control form-control-sm"/>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label small fw-semibold">Date fin</label>
+            <input type="date" name="dateFin" value="@Model.DateFin?.ToString("yyyy-MM-dd")" class="form-control form-control-sm"/>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label small fw-semibold">Justification</label>
+            <input type="text" name="justification" value="@Model.Justification" class="form-control form-control-sm" placeholder="Filtrer…"/>
+        </div>
+        <div class="col-md-2 d-flex gap-1 align-items-end">
+            <button type="submit" class="btn btn-primary-custom btn-sm flex-grow-1"><i class="bi bi-search"></i> Filtrer</button>
+            <a asp-action="MyAbsences" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x"></i></a>
+        </div>
+    </form>
+</div>
+
+@{
+    var justified   = Model.Results.Count(a => a.EstJustifiee);
+    var unjustified = Model.Results.Count(a => !a.EstJustifiee);
+    var totalDays   = Model.Results.Sum(a => a.NombreJours);
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-4">
+        <div class="kpi-card kpi-pink">
+            <div class="kpi-icon"><i class="bi bi-calendar-x-fill"></i></div>
+            <div class="kpi-value">@Model.Results.Count</div>
+            <div class="kpi-label">Total absences</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="kpi-card kpi-green">
+            <div class="kpi-icon"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="kpi-value">@justified</div>
+            <div class="kpi-label">Justifiées</div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="kpi-card kpi-orange">
+            <div class="kpi-icon"><i class="bi bi-exclamation-circle-fill"></i></div>
+            <div class="kpi-value">@totalDays</div>
+            <div class="kpi-label">Jours total</div>
+        </div>
+    </div>
+</div>
+
+<div class="card-panel">
+    <table class="table table-clean">
+        <thead>
+            <tr>
+                <th>Module / Séance</th><th>Professeur</th><th>Début</th>
+                <th>Fin</th><th>Jours</th><th>Statut</th><th>Justification</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var a in Model.Results)
+        {
+            <tr>
+                <td><span class="badge badge-group">@a.Module?.Libelle</span></td>
+                <td class="small text-muted">@a.Professeur?.NomComplet</td>
+                <td class="small">@a.Date_debut.ToString("dd/MM/yyyy")</td>
+                <td class="small">@a.Date_fin.ToString("dd/MM/yyyy")</td>
+                <td><span class="badge bg-secondary">@a.NombreJours j</span></td>
+                <td>
+                    @if (a.EstJustifiee) { <span class="badge badge-justified">✓ Justifiée</span> }
+                    else { <span class="badge badge-unjustified">Non justifiée</span> }
+                </td>
+                <td class="small text-muted">@(a.Justification ?? "—")</td>
+            </tr>
+        }
+        @if (!Model.Results.Any())
+        { <tr><td colspan="7" class="text-center text-muted py-4">Aucune absence enregistrée.</td></tr> }
+        </tbody>
+    </table>
+</div>

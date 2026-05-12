@@ -1,0 +1,19 @@
+@model Niveau
+@{ViewData["Title"] = "Modifier niveau";}
+<div class="row justify-content-center"><div class="col-lg-5"><div class="card-panel">
+    <h5 class="mb-4"><i class="bi bi-pencil-square text-warning me-2"></i>Modifier niveau</h5>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id_ni"/>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+        <div class="mb-3">
+            <label asp-for="Libelle" class="form-label fw-semibold"></label>
+            <input asp-for="Libelle" class="form-control"/>
+            <span asp-validation-for="Libelle" class="text-danger small"></span>
+        </div>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-warning text-white">Mettre à jour</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+        </div>
+    </form>
+</div></div></div>
+@section Scripts { @await Html.PartialAsync("_ValidationScriptsPartial") }

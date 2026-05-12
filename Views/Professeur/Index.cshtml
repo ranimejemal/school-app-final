@@ -1,0 +1,47 @@
+@model IEnumerable<Professeur>
+@{ViewData["Title"] = "Professeurs";}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title mb-0"><i class="bi bi-person-badge-fill me-2 text-purple"></i>Gestion des professeurs</h4>
+    <a asp-action="Create" class="btn btn-primary-custom"><i class="bi bi-plus-lg me-1"></i>Ajouter</a>
+</div>
+
+<div class="card-panel">
+    <form method="get" class="mb-3">
+        <div class="input-group" style="max-width:380px">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+            <input type="text" name="search" value="@ViewData["Search"]" class="form-control border-start-0" placeholder="Nom ou prénom…"/>
+            <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-clean">
+            <thead>
+                <tr><th>Nom & Prénom</th><th>Email</th><th>Téléphone</th><th>Date embauche</th><th class="text-end">Actions</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="avatar-sm">@p.Prenom[0]@p.Nom[0]</div>
+                            <div><div class="fw-semibold">@p.NomComplet</div><small class="text-muted">CIN : @p.Cin</small></div>
+                        </div>
+                    </td>
+                    <td><small class="text-muted">@p.Email</small></td>
+                    <td><small class="text-muted">@p.Tel</small></td>
+                    <td><small class="text-muted">@p.Date_emb.ToString("dd/MM/yyyy")</small></td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit"    asp-route-id="@p.Id" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete"  asp-route-id="@p.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            { <tr><td colspan="5" class="text-center text-muted py-4">Aucun professeur trouvé.</td></tr> }
+            </tbody>
+        </table>
+    </div>
+</div>
