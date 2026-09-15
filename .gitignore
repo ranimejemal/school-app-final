@@ -1,0 +1,6 @@
+bin/
+obj/
+.vs/
+*.lscache
+*.user
+appsettings.Development.json
