@@ -85,18 +85,24 @@ Views/          Razor views, one folder per controller
 wwwroot/        Static assets (css/site.css, js/site.js)
 ```
 
-## Deploying (Render)
+## Deploying
 
 This is a stateful ASP.NET Core app (Identity, sessions, cookie auth) with a Postgres backend, so it needs a real long-running host — it will **not** run on Vercel (no .NET runtime there, and Vercel's serverless functions are stateless, which breaks the in-memory session store this app uses).
 
-Render works because it runs the container as a persistent process. Steps:
+Both configs below build the same `Dockerfile`, which already reads the platform's assigned `$PORT` at runtime — no per-host Dockerfile changes needed.
 
-1. **Get a PostgreSQL database.** Render offers a managed Postgres add-on, or use an external provider (Aiven, Supabase, Railway). Grab its connection string and format it as:
+### Railway (current target)
+
+1. **Get a PostgreSQL database.** Railway can provision one for you (New → Database → PostgreSQL in the same project), or use an external provider (Aiven, Supabase). Either way you need the connection string in this format:
    `Host=<host>;Port=<port>;Database=<db>;Username=<user>;Password=<password>;SSL Mode=Require;Trust Server Certificate=true`
-2. **Create the service.** In the Render dashboard: New → Blueprint → point it at this repo. It picks up `render.yaml` and `Dockerfile` automatically. (Or: New → Web Service → Runtime: Docker, if you'd rather configure it by hand.)
-3. **Set the connection string.** `render.yaml` declares `ConnectionStrings__DefaultConnection` as a secret (`sync: false`) — Render will prompt you for its value during setup. Paste the connection string from step 1 there; don't put it in `appsettings.json`.
-4. **Deploy.** Render builds the Dockerfile and starts the container on the `$PORT` it assigns. On first boot, `DbInitializer.SeedAsync` creates the schema (via `EnsureCreatedAsync`) and seeds roles + the default admin account (see [Setup](#3-create-the-database) above) — no separate migration step needed.
+2. **Create the service.** Railway dashboard → New → Deploy from GitHub repo → select this repo. `railway.json` pins the builder to `DOCKERFILE` explicitly, so it won't auto-detect the wrong language.
+3. **Set the connection string.** In the service's Variables tab, add `ConnectionStrings__DefaultConnection` with the value from step 1. Don't put it in `appsettings.json`.
+4. **Deploy.** On first boot, `DbInitializer.SeedAsync` creates the schema (via `EnsureCreatedAsync`) and seeds roles + the default admin account (see [Setup](#3-create-the-database) above) — no separate migration step needed.
 5. Log in as `admin` / `Admin@1234` and change the password immediately (the forced-password-change flow will prompt you anyway).
+
+### Render (also configured, `render.yaml`)
+
+Same idea as Railway: New → Blueprint → point at this repo, it picks up `render.yaml` and `Dockerfile` automatically, prompts for `ConnectionStrings__DefaultConnection` as a secret. Kept in the repo in case Railway doesn't work out — the Dockerfile is shared between both.
 
 ### Running the container locally
 
