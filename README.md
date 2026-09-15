@@ -5,16 +5,15 @@ A school management system for handling students, professors, groups, modules, e
 ## Tech stack
 
 - **ASP.NET Core 8 MVC** (C#, Razor Views)
-- **Entity Framework Core 8** with the **Pomelo MySQL** provider
+- **Entity Framework Core 8** with the **Npgsql** provider
 - **ASP.NET Core Identity** for auth (roles, lockout, 2FA)
-- **MySQL** as the database
+- **PostgreSQL** as the database
 - Repository / Unit-of-Work pattern (`Repositories/`) on top of EF Core
 
 ## Prerequisites
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- A running MySQL server (8.x recommended)
-- (Optional) `dotnet-ef` CLI tool for migrations: `dotnet tool install --global dotnet-ef`
+- A running PostgreSQL server (Aiven, Render, Supabase, Railway, or local)
 
 ## Setup
 
@@ -27,23 +26,23 @@ cd school-app-final
 
 ### 2. Configure the database connection
 
-`appsettings.json` currently ships with a hardcoded local connection string (`ConnectionStrings:DefaultConnection`). **Don't run with that value as-is** — set your own via `dotnet user-secrets` instead of editing the committed file:
+`appsettings.json` ships with a placeholder connection string (`ConnectionStrings:DefaultConnection`). **Don't run with that value as-is** — set your own via `dotnet user-secrets` instead of editing the committed file:
 
 ```bash
 dotnet user-secrets init
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "server=localhost;port=3306;database=SchoolDb;user=root;password=<your-password>;"
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Host=<your-host>;Port=5432;Database=SchoolDb;Username=<your-user>;Password=<your-password>;SSL Mode=Require;Trust Server Certificate=true"
 ```
 
-This overrides `appsettings.json` locally without touching the repo. (If you've already pushed a real password in `appsettings.json`, rotate that MySQL credential — it's public in the repo history.)
+Drop the `SSL Mode`/`Trust Server Certificate` parts if you're pointing at a local Postgres instance without TLS. This overrides `appsettings.json` locally without touching the repo. (Note: a real MySQL password was previously committed to this file's history before the app was migrated to Postgres — if you're reusing any part of that old credential elsewhere, rotate it.)
 
-### 3. Create the database and apply migrations
+### 3. Create the database
 
 ```bash
 dotnet restore
-dotnet ef database update
+dotnet run
 ```
 
-This creates the `SchoolDb` schema from `Migrations/`. On first run, the app also seeds:
+There's no separate migration step — `DbInitializer.SeedAsync` (called on every startup in `Program.cs`) runs `Database.EnsureCreatedAsync()` against whatever connection string you've configured, creating the schema directly from the EF Core model. On first run it also seeds:
 
 - Roles: `Admin`, `Professeur`, `Etudiant`
 - A default admin account — **username:** `admin`, **password:** `Admin@1234`
@@ -51,13 +50,9 @@ This creates the `SchoolDb` schema from `Migrations/`. On first run, the app als
 
 Change the seeded admin password immediately after first login (or before deploying anywhere public).
 
-### 4. Run
+> This app uses `EnsureCreated()`, not EF Core Migrations — there's no `Migrations/` folder. That's fine for this project's scope, but it means schema changes aren't tracked/versioned; if you extend the model significantly, consider adding migrations back with `dotnet ef migrations add <Name>` (requires the `dotnet-ef` tool: `dotnet tool install --global dotnet-ef`) and switching `Program.cs` to call `Database.Migrate()` instead.
 
-```bash
-dotnet run
-```
-
-By default the app listens on the URL(s) printed in the console (typically `https://localhost:5001` / `http://localhost:5000` for `dotnet run`, or whatever's configured in `Properties/launchSettings.json` if present). Open that URL and log in with the seeded admin account.
+The app listens on the URL(s) printed in the console (typically `https://localhost:5001` / `http://localhost:5000`, or whatever's configured in `Properties/launchSettings.json` if present). Open that URL and log in with the seeded admin account.
 
 ## Login flow
 
@@ -86,22 +81,21 @@ Models/         EF Core entities + ViewModels/
 Data/           ApplicationDbContext + DbInitializer (seeding)
 Repositories/   Generic repository + Unit of Work
 Services/       Business logic (AbsenceService, StatisticsService)
-Migrations/     EF Core migrations
 Views/          Razor views, one folder per controller
 wwwroot/        Static assets (css/site.css, js/site.js)
 ```
 
 ## Deploying (Render)
 
-This is a stateful ASP.NET Core app (Identity, sessions, cookie auth) with a MySQL backend, so it needs a real long-running host — it will **not** run on Vercel (no .NET runtime there, and Vercel's serverless functions are stateless, which breaks the in-memory session store this app uses).
+This is a stateful ASP.NET Core app (Identity, sessions, cookie auth) with a Postgres backend, so it needs a real long-running host — it will **not** run on Vercel (no .NET runtime there, and Vercel's serverless functions are stateless, which breaks the in-memory session store this app uses).
 
 Render works because it runs the container as a persistent process. Steps:
 
-1. **Get a MySQL database.** Render doesn't host MySQL directly — use an external provider (PlanetScale, Railway, Aiven, or your own server) and grab its connection string in the form:
-   `server=<host>;port=3306;database=<db>;user=<user>;password=<password>;`
+1. **Get a PostgreSQL database.** Render offers a managed Postgres add-on, or use an external provider (Aiven, Supabase, Railway). Grab its connection string and format it as:
+   `Host=<host>;Port=<port>;Database=<db>;Username=<user>;Password=<password>;SSL Mode=Require;Trust Server Certificate=true`
 2. **Create the service.** In the Render dashboard: New → Blueprint → point it at this repo. It picks up `render.yaml` and `Dockerfile` automatically. (Or: New → Web Service → Runtime: Docker, if you'd rather configure it by hand.)
 3. **Set the connection string.** `render.yaml` declares `ConnectionStrings__DefaultConnection` as a secret (`sync: false`) — Render will prompt you for its value during setup. Paste the connection string from step 1 there; don't put it in `appsettings.json`.
-4. **Deploy.** Render builds the Dockerfile and starts the container on the `$PORT` it assigns. On first boot, `DbInitializer.SeedAsync` creates the schema and seeds roles + the default admin account (see [Setup](#3-create-the-database-and-apply-migrations) above) — no separate migration step needed.
+4. **Deploy.** Render builds the Dockerfile and starts the container on the `$PORT` it assigns. On first boot, `DbInitializer.SeedAsync` creates the schema (via `EnsureCreatedAsync`) and seeds roles + the default admin account (see [Setup](#3-create-the-database) above) — no separate migration step needed.
 5. Log in as `admin` / `Admin@1234` and change the password immediately (the forced-password-change flow will prompt you anyway).
 
 ### Running the container locally
@@ -109,7 +103,7 @@ Render works because it runs the container as a persistent process. Steps:
 ```bash
 docker build -t schoolapp .
 docker run -p 8080:8080 \
-  -e ConnectionStrings__DefaultConnection="server=host.docker.internal;port=3306;database=SchoolDb;user=root;password=<your-password>;" \
+  -e ConnectionStrings__DefaultConnection="Host=host.docker.internal;Port=5432;Database=SchoolDb;Username=postgres;Password=<your-password>;SSL Mode=Require;Trust Server Certificate=true" \
   schoolapp
 ```
 
